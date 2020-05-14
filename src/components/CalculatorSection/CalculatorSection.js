@@ -16,8 +16,9 @@ import {
 import { useForm } from 'react-hook-form'
 import { calcPrecoMedio, calcResultadoAuferido } from '../../calculator'
 import HistorySection from '../HistorySection/HistorySection'
+import { withTheme } from '@material-ui/styles'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: 'linear-gradient(45deg, #F4F7FF 30%, #A1D6E6 90%)',
     border: 0,
@@ -36,7 +37,16 @@ const useStyles = makeStyles({
       },
     },
   },
-})
+  wrapper: {
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+      '& > form, & > div': {
+        width: '45%',
+      },
+    },
+  },
+}))
 
 const CalculatorSection = () => {
   const classes = useStyles()
@@ -47,8 +57,9 @@ const CalculatorSection = () => {
   const [prejuizoAcumulado, setPrejuizoAcumulado] = useState(0)
   const [impostoRenda, setImpostoRenda] = useState(0)
   const { register, handleSubmit } = useForm()
+  const defaultDate = new Date().toISOString().slice(0, 10)
+
   const onSubmit = (data) => {
-    //console.log(data)
     setItems([...items, data])
     let { price, quantity, tax, type } = data
     price = parseFloat(price)
@@ -89,22 +100,18 @@ const CalculatorSection = () => {
         <Box
           display="flex"
           justifyContent="space-between"
-          flexDirection="row"
+          className={classes.wrapper}
           pt={4}
           mb={8}
         >
-          <Box
-            component="form"
-            width="45%"
-            onSubmit={handleSubmit(onSubmit)}
-            mb={8}
-          >
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} mb={4}>
             <InputLabel htmlFor="date">Data:</InputLabel>
             <TextField
               name="date"
               type="date"
               inputRef={register}
-              defaultValue="2020-05-10"
+              defaultValue={defaultDate}
+              fullWidth
             />
             <InputLabel htmlFor="price">Preço:</InputLabel>
             <TextField
@@ -113,6 +120,7 @@ const CalculatorSection = () => {
               inputRef={register}
               step="0.01"
               defaultValue="26.90"
+              fullWidth
             />
             <InputLabel htmlFor="quantity">Quantidade:</InputLabel>
             <TextField
@@ -120,6 +128,7 @@ const CalculatorSection = () => {
               type="number"
               inputRef={register}
               defaultValue="100"
+              fullWidth
             />
             <InputLabel htmlFor="tax">Taxa:</InputLabel>
             <TextField
@@ -128,6 +137,7 @@ const CalculatorSection = () => {
               inputRef={register}
               step="0.01"
               defaultValue="8.50"
+              fullWidth
             />
             <Box display="block">
               <FormControl component="fieldset">
@@ -148,11 +158,11 @@ const CalculatorSection = () => {
                 </RadioGroup>
               </FormControl>
             </Box>
-            <Button type="submit" variant="outlined" color="primary">
+            <Button type="submit" variant="outlined" color="primary" fullWidth>
               Calcular
             </Button>
           </Box>
-          <Box width="45%">
+          <Box mb={{ xs: 6, md: 0 }}>
             <Box mb={2}>
               <Typography variant="h4" component="h2">
                 Resultados
@@ -178,4 +188,4 @@ const CalculatorSection = () => {
   )
 }
 
-export default CalculatorSection
+export default withTheme(CalculatorSection)
