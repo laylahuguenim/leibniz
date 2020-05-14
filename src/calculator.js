@@ -8,8 +8,17 @@ QM inicialmente zero.
 
 */
 
-const calcPrecoMedio = (precoMedioValue, quantMediaValue, precoCompra, quantComprada, taxaCorretagem) => 
-    (precoMedioValue * quantMediaValue + precoCompra * quantComprada + taxaCorretagem ) / (quantMediaValue + quantComprada)
+const calcPrecoMedio = (
+  precoMedioValue,
+  quantMediaValue,
+  precoCompra,
+  quantComprada,
+  taxaCorretagem
+) =>
+  (precoMedioValue * quantMediaValue +
+    precoCompra * quantComprada +
+    taxaCorretagem) /
+  (quantMediaValue + quantComprada)
 
 /*
 
@@ -20,7 +29,12 @@ Sendo PV o preço de venda, QV a quantidade vendida e TV a taxa de corretagem de
 
 */
 
-const calcResultadoAuferido = (precoVenda, precoMedioValue, quantidadeVendida, taxaCorretagem) => (precoVenda - precoMedioValue) * quantidadeVendida - taxaCorretagem
+const calcResultadoAuferido = (
+  precoVenda,
+  precoMedioValue,
+  quantidadeVendida,
+  taxaCorretagem
+) => (precoVenda - precoMedioValue) * quantidadeVendida - taxaCorretagem
 
 /*
 
@@ -29,9 +43,4 @@ PA = PA + RA
 
 */
 
-
-
-export {
-    calcPrecoMedio,
-    calcResultadoAuferido
-}
+export { calcPrecoMedio, calcResultadoAuferido }
