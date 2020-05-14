@@ -41,6 +41,8 @@ const calcResultadoAuferido = (
 3) Caso haja prejuízo no resultado auferido, deve-se somá-lo ao prejuízo acumulado (PA):
 PA = PA + RA
 
+Regra 3 e 4 são implementadas no próprio CalculatorSection. Assim como as atualizações da quantidade média.
+
 */
 
 export { calcPrecoMedio, calcResultadoAuferido }
